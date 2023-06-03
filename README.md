@@ -10,3 +10,5 @@ I created superuser with the username "AnAdmin", an email adress of "anadmin@exa
 
 For the database table `CRUD_APP_client_info` I implemented the query as:
 CREATE TABLE `CRUD_APP_client_info` (`client_id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `id_number` varchar(13) NOT NULL UNIQUE, `first_name` varchar(50) NOT NULL, `last_name` varchar(50) NOT NULL, `date_of_birth` datetime(6) NOT NULL, `title` varchar(4) NOT NULL, `phone_number` varchar(11) NOT NULL, `email` varchar(254) NOT NULL)
+
+_Note_ There is a db.mysql file in the root of the repository though empty. I t is symbolic, the database used here is in the system, not the source tree.
