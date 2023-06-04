@@ -1,9 +1,8 @@
 from django.urls import path
 
-from . import views
+from .views import ClientSpecs, ClientDetail
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("success", views.success, name="success"),
-    path("oops", views.success, name="oops"),
+    path("", ClientSpecs.as_view()),
+    path("<str:pk>", ClientDetail.as_view())
 ]

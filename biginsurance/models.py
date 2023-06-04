@@ -1,8 +1,5 @@
 from django.db import models
-from django.core.validators import RegexValidator, EmailValidator
-from django.forms import ModelForm
-from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
-from django.utils.translation import gettext_lazy as a_
+import re
 
 # Create your models here.
 
@@ -15,7 +12,6 @@ Title_Choices = [
     ("Ms", "Mr")
 ]
 
-
 class Client(models.Model):
     """Model of a client form registering their details for the first time
     A client will be identified as new by their id number"""
@@ -24,18 +20,14 @@ class Client(models.Model):
     phone_number = models.CharField(max_length=11)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    date_of_birth = models.DateTimeField(help_text="Eg. YYYY-MM-DD")
+    date_of_birth = models.DateTimeField(auto_now_add=True)
     email = models.EmailField()
     title = models.CharField(max_length=4, choices=Title_Choices)
     class Meta:
         db_table = "CRUD_APP_client_info"
 
-    
-
-class ClientForm(ModelForm):
-    class Meta:
-        model = Client
-        fields = [
-            "id_number", "phone_number", "first_name", "last_name", "date_of_birth",
-            "email", "title"
-            ]
+        def __str__(self) -> str:
+            return self.id_number
+        
+    def change_date_format(self, dt):
+        return self.re.sub(r'(\d{1,2})-(\d{1,2})-(\d{4})', '\\1-\\2-\\3', dt)
